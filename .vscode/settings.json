@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/*.min.js": true,
+        "build/**": true
+    },
+    "javascript.format.enable": false,
+    "javascript.format.insertSpaceAfterCommaDelimiter": false
+}
