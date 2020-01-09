@@ -12,8 +12,15 @@
   },
   "author": "",
   "license": "MIT",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "mathquill",
+      "node_modules"
+    ]
+  },
   "dependencies": {
     "aphrodite": "^1.1.0",
+    "jest": "^24.9.0",
     "jquery": "^2.1.1",
     "katex": "0.11.1",
     "performance-now": "^0.2.0",

@@ -47,14 +47,14 @@ describe('Cursor context', () => {
         }
     });
 
-    it('should treat number-only expressions as non-jumpable', () => {
+    test('should treat number-only expressions as non-jumpable', () => {
         mathField.pressKey('NUM_1');
         mathField.pressKey('NUM_2');
         const cursor = mathField.pressKey('NUM_3');
         assert.equal(cursor.context, CursorContexts.NONE);
     });
 
-    it('should treat numbers and ternary operators as non-jumpable', () => {
+    test('should treat numbers and ternary operators as non-jumpable', () => {
         mathField.pressKey('NUM_1');
         mathField.pressKey(Keys.CDOT);
         const cursor = mathField.pressKey('NUM_2');
@@ -62,12 +62,12 @@ describe('Cursor context', () => {
     });
 
     describe('Before fraction', () => {
-        it('should detect when immediately to the left', () => {
+        test('should detect when immediately to the left', () => {
             const cursor = mathField.pressKey(Keys.FRAC_EXCLUSIVE);
             assert.equal(cursor.context, CursorContexts.BEFORE_FRACTION);
         });
 
-        it('should detect when numbers are between', () => {
+        test('should detect when numbers are between', () => {
             mathField.pressKey('NUM_1');
             mathField.pressKey(Keys.FRAC_EXCLUSIVE);
             mathField.pressKey(Keys.LEFT);
@@ -75,7 +75,7 @@ describe('Cursor context', () => {
             assert.equal(cursor.context, CursorContexts.BEFORE_FRACTION);
         });
 
-        it('should not detect when operators are between', () => {
+        test('should not detect when operators are between', () => {
             mathField.pressKey('NUM_1');
             mathField.pressKey(Keys.PLUS);
             mathField.pressKey('NUM_2');
@@ -87,7 +87,7 @@ describe('Cursor context', () => {
             assert.equal(cursor.context, CursorContexts.NONE);
         });
 
-        it('should not detect when parens are between', () => {
+        test('should not detect when parens are between', () => {
             mathField.pressKey('NUM_1');
             mathField.pressKey(Keys.LEFT_PAREN);
             mathField.pressKey(Keys.RIGHT_PAREN);
@@ -103,14 +103,14 @@ describe('Cursor context', () => {
     });
 
     describe('In parens', () => {
-        it('should detect when inside empty parens', () => {
+        test('should detect when inside empty parens', () => {
             mathField.pressKey(Keys.LEFT_PAREN);
             mathField.pressKey(Keys.RIGHT_PAREN);
             const cursor = mathField.pressKey(Keys.LEFT);
             assert.equal(cursor.context, CursorContexts.IN_PARENS);
         });
 
-        it('should detect when inside non-empty parens', () => {
+        test('should detect when inside non-empty parens', () => {
             mathField.pressKey(Keys.LEFT_PAREN);
             mathField.pressKey('NUM_2');
             mathField.pressKey(Keys.RIGHT_PAREN);
@@ -120,13 +120,13 @@ describe('Cursor context', () => {
     });
 
     describe('In superscript', () => {
-        it('should detect when inside empty superscript', () => {
+        test('should detect when inside empty superscript', () => {
             mathField.pressKey('NUM_2');
             const cursor = mathField.pressKey(Keys.EXP);
             assert.equal(cursor.context, CursorContexts.IN_SUPER_SCRIPT);
         });
 
-        it('should detect when inside non-empty superscript', () => {
+        test('should detect when inside non-empty superscript', () => {
             mathField.pressKey('NUM_2');
             mathField.pressKey(Keys.EXP);
             const cursor = mathField.pressKey('NUM_3');
@@ -135,12 +135,12 @@ describe('Cursor context', () => {
     });
 
     describe('In subscript', () => {
-        it('should detect when inside empty superscript', () => {
+        test('should detect when inside empty superscript', () => {
             const cursor = mathField.pressKey(Keys.LOG_N);
             assert.equal(cursor.context, CursorContexts.IN_SUB_SCRIPT);
         });
 
-        it('should detect when inside non-empty superscript', () => {
+        test('should detect when inside non-empty superscript', () => {
             mathField.pressKey(Keys.LOG_N);
             const cursor = mathField.pressKey('NUM_2');
             assert.equal(cursor.context, CursorContexts.IN_SUB_SCRIPT);
@@ -148,12 +148,12 @@ describe('Cursor context', () => {
     });
 
     describe('In numerator', () => {
-        it('should detect when inside empty numerator', () => {
+        test('should detect when inside empty numerator', () => {
             const cursor = mathField.pressKey(Keys.FRAC_INCLUSIVE);
             assert.equal(cursor.context, CursorContexts.IN_NUMERATOR);
         });
 
-        it('should detect when inside non-empty numerator', () => {
+        test('should detect when inside non-empty numerator', () => {
             mathField.pressKey(Keys.FRAC_INCLUSIVE);
             const cursor = mathField.pressKey('NUM_2');
             assert.equal(cursor.context, CursorContexts.IN_NUMERATOR);
@@ -161,13 +161,13 @@ describe('Cursor context', () => {
     });
 
     describe('In denominator', () => {
-        it('should detect when inside empty denominator', () => {
+        test('should detect when inside empty denominator', () => {
             mathField.pressKey(Keys.FRAC_INCLUSIVE);
             const cursor = mathField.pressKey(Keys.RIGHT);
             assert.equal(cursor.context, CursorContexts.IN_DENOMINATOR);
         });
 
-        it('should detect when inside non-empty denominator', () => {
+        test('should detect when inside non-empty denominator', () => {
             mathField.pressKey(Keys.FRAC_INCLUSIVE);
             mathField.pressKey(Keys.RIGHT);
             const cursor = mathField.pressKey('NUM_2');
@@ -176,7 +176,7 @@ describe('Cursor context', () => {
     });
 
     describe('Nesting', () => {
-        it('should defer to jumping into fraction if possible', () => {
+        test('should defer to jumping into fraction if possible', () => {
             // Move inside parens, but include a fraction.
             mathField.pressKey(Keys.LEFT_PAREN);
             mathField.pressKey('NUM_2');
@@ -185,7 +185,7 @@ describe('Cursor context', () => {
             assert.equal(cursor.context, CursorContexts.BEFORE_FRACTION);
         });
 
-        it('should defer to the nearest parent (1)', () => {
+        test('should defer to the nearest parent (1)', () => {
             // Move inside parens, inside a superscript.
             mathField.pressKey('NUM_2');
             mathField.pressKey(Keys.EXP);
@@ -194,7 +194,7 @@ describe('Cursor context', () => {
             assert.equal(cursor.context, CursorContexts.IN_PARENS);
         });
 
-        it('should defer to the nearest parent (2)', () => {
+        test('should defer to the nearest parent (2)', () => {
             // Nest fractions, and put cursor in the denominator of the fraction
             // in the numerator.
             mathField.pressKey(Keys.FRAC_INCLUSIVE);

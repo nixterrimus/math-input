@@ -54,7 +54,7 @@ describe('GestureStateMachine', () => {
         assert.deepEqual(eventBuffer, expectedEvents);
     };
 
-    it('should trigger a tap on a simple button', () => {
+    test('should trigger a tap on a simple button', () => {
         const touchId = 1;
 
         // Trigger a touch start, followed immediately by a touch end.
@@ -69,7 +69,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEvents);
     });
 
-    it('should shift focus to a new button on move', () => {
+    test('should shift focus to a new button on move', () => {
         const touchId = 1;
 
         // Trigger a touch start on one node before moving over another node and
@@ -87,7 +87,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEvents);
     });
 
-    it('should trigger a long press on hold', (done) => {
+    test('should trigger a long press on hold', (done) => {
         const touchId = 1;
 
         /// Trigger a touch start.
@@ -118,7 +118,7 @@ describe('GestureStateMachine', () => {
         }, longPressWaitTimeMs);
     });
 
-    it('should trigger multiple presses on hold', (done) => {
+    test('should trigger multiple presses on hold', (done) => {
         const touchId = 1;
 
         // Trigger a touch start on the multi-pressable node.
@@ -151,7 +151,7 @@ describe('GestureStateMachine', () => {
         }, holdIntervalMs);
     });
 
-    it('should be robust to multiple touch starts', (done) => {
+    test('should be robust to multiple touch starts', (done) => {
         const touchId = 1;
 
         // Trigger a touch start on the multi-pressable node twice, because
@@ -193,7 +193,7 @@ describe('GestureStateMachine', () => {
 
     /* Swiping. */
 
-    it('should transition to a swipe', () => {
+    test('should transition to a swipe', () => {
         const touchId = 1;
 
         // Trigger a touch start, followed by a move past the swipe threshold.
@@ -218,7 +218,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEvents);
     });
 
-    it('should not transition to a swipe when swiping is diabled', () => {
+    test('should not transition to a swipe when swiping is diabled', () => {
         const touchId = 1;
 
         // Trigger a touch start, followed by a move past the swipe threshold.
@@ -234,7 +234,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEvents);
     });
 
-    it('should not transition to a swipe on drag from a locked key', () => {
+    test('should not transition to a swipe on drag from a locked key', () => {
         const touchId = 1;
 
         // Trigger a touch start, followed by a move past the swipe threshold.
@@ -252,7 +252,7 @@ describe('GestureStateMachine', () => {
 
     /* Multi-touch. */
 
-    it('should respect simultaneous taps by two fingers', () => {
+    test('should respect simultaneous taps by two fingers', () => {
         const firstTouchId = 1;
         const secondTouchId = 2;
 
@@ -273,7 +273,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEvents);
     });
 
-    it('should ignore any additional touches when swiping', () => {
+    test('should ignore any additional touches when swiping', () => {
         const firstTouchId = 1;
         const secondTouchId = 2;
         const thirdTouchId = 3;
@@ -327,7 +327,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEventsAfterSwipeEnd);
     });
 
-    it('should track swipe displacement on a per-finger basis', () => {
+    test('should track swipe displacement on a per-finger basis', () => {
         const firstTouchId = 1;
         const firstTouchStartX = 15;
         const secondTouchId = 2;
@@ -380,7 +380,7 @@ describe('GestureStateMachine', () => {
         assertEvents(expectedEventsAfterSwipeStart);
     });
 
-    it('should be robust to extraneous fingers', () => {
+    test('should be robust to extraneous fingers', () => {
         const firstTouchId = 1;
         const firstTouchStartX = 15;
         const secondTouchId = 2;

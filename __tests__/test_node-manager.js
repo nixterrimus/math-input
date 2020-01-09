@@ -11,14 +11,14 @@ describe('NodeManager', () => {
         nodeManager = new NodeManager();
     });
 
-    it('should register a single node with no children', () => {
+    test('should register a single node with no children', () => {
         const nodeId = "1";
         nodeManager.registerDOMNode(nodeId, {}, []);
         assert.ok(nodeManager._nodesById[nodeId]);
         assert.ok(nodeManager._orderedIds.includes(nodeId));
     });
 
-    it('should register a single node with children', () => {
+    test('should register a single node with children', () => {
         const nodeId = "1";
         const childNodeIds = ["2", "3"];
         nodeManager.registerDOMNode(nodeId, {}, childNodeIds);
@@ -34,7 +34,7 @@ describe('NodeManager', () => {
         }
     });
 
-    it('should order children ahead of their parents', () => {
+    test('should order children ahead of their parents', () => {
         const nodeId = "1";
         const childNodeIds = ["2", "3"];
         nodeManager.registerDOMNode(nodeId, {}, childNodeIds);
@@ -48,7 +48,7 @@ describe('NodeManager', () => {
         }
     });
 
-    it('should de-dupe the list of node IDs', () => {
+    test('should de-dupe the list of node IDs', () => {
         const nodeId = "1";
         const childNodeId = "2";
 
@@ -65,7 +65,7 @@ describe('NodeManager', () => {
         assert.deepEqual(nodeManager._orderedIds, [childNodeId, nodeId]);
     });
 
-    it('should handle multiple sets of children', () => {
+    test('should handle multiple sets of children', () => {
         const firstNodeId = "1";
         const firstNodeChildIds = ["2", "3"];
         const secondNodeId = "4";
